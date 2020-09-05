@@ -7,11 +7,13 @@ const Button = (props) => (
   </button>
 )
 
-  const Display = ({ text, value }) => {
+  const Statistic = ({ text, value }) => {
     return (
-      <div>
-        <p>{text} {value}</p>
-      </div>
+      <tr>
+        <td>{text}</td>
+        <td>{value}</td>
+      </tr>
+
     )
   }
 
@@ -33,12 +35,16 @@ const Statistics = ({ good, neutral, bad }) => {
     <div>
       <h2>statistics</h2>
 
-      <Display text={'good'} value={good}/>
-      <Display text={'neutral'} value={neutral}/>
-      <Display text={'bad'} value={bad}/>
-      <Display text={'all'} value={total}/>
-      <Display text={'average'} value={(good - bad) / total}/>
-      <Display text={'positive'} value={`${good / total * 100} % `}/>
+      <table>
+        <tbody>
+          <Statistic text={'good'} value={good}/>
+          <Statistic text={'neutral'} value={neutral}/>
+          <Statistic text={'bad'} value={bad}/>
+          <Statistic text={'all'} value={total}/>
+          <Statistic text={'average'} value={(good - bad) / total}/>
+          <Statistic text={'positive'} value={`${good / total * 100} % `}/>
+        </tbody>
+    </table>
     </div>
   )
 }
