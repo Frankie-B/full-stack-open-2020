@@ -22,7 +22,6 @@ const App = (props) => {
   const len = props.anecdotes.length;
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(new Array(len).fill(0));
-  // const [mostVotes, setMostVotes] = useState(0);
 
   const getRandom = () => {
     return Math.floor((len) * Math.random(0, len));
@@ -45,8 +44,7 @@ const App = (props) => {
 
 
   return (
-    <div>
-    
+    <div>    
       <Header text={'Anecdote of the day'}/>
 
       <Anecdote
