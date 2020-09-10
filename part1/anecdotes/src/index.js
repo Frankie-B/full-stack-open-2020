@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-
-function getRandom(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-};
-
 const Anecdote = ({text, votes=0}) => {
   return (
     <div>
@@ -15,42 +10,56 @@ const Anecdote = ({text, votes=0}) => {
   )
 }
 
-const Button = (props) => (
-  <button onClick={props.handleClick}>{props.text}</button>
-);
+const Header = ({ text }) => <h1>{text}</h1>
+
+const Button = ({ handleClick, text }) => {
+  return (
+    <button onClick={handleClick}>{text}</button>
+  );
+};
 
 const App = (props) => {
+  const len = props.anecdotes.length;
   const [selected, setSelected] = useState(0);
-  const [votes, setVotes] = useState({});
-  const [mostVotes, setMostVotes] = useState(0);
+  const [votes, setVotes] = useState(new Array(len).fill(0));
+  // const [mostVotes, setMostVotes] = useState(0);
 
-  const vote = () => {
-    const copy = [...votes];
-    copy[selected] += 1;
-
-    if (copy[selected] > votes[mostVotes]) {
-      setMostVotes(selected);
-    };
-
-    setVotes(copy);
-
-  }
+  const getRandom = () => {
+    return Math.floor((len) * Math.random(0, len));
+  };
 
   const nextAnecdote = () => {
-    setSelected(getRandom(props.anecdotes.length))
+    setSelected(getRandom(getRandom()));
+  };
+
+  const vote = () => {
+    const newVotes = [...votes];
+    newVotes[selected] += 1;
+
+    setVotes(newVotes);
   }
+
+  const totalVotes = votes.indexOf(Math.max(...votes));
+  console.log(totalVotes, Math.max(...votes));
+
+
 
   return (
     <div>
-      <h2>Anecdote of the day</h2>
+    
+      <Header text={'Anecdote of the day'}/>
 
       <Anecdote
         text={props.anecdotes[selected]}
         votes={votes[selected]}
       />
 
-      <Button handleClick={vote} text={'Vote'} />
-   
+      <Button handleClick={vote} text={'vote'}/>
+      <Button handleClick={nextAnecdote} text={'next anecdote'} />
+
+      <Header text={'Anecdote with the most votes'}/>
+
+      <Anecdote  text={props.anecdotes[totalVotes]} votes={votes[totalVotes]} />
     </div>
   );
 }
