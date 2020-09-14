@@ -3,43 +3,39 @@ import React from 'react'
 
 const Header = ({ course }) => {
   return (
-    <h1>{course.name}</h1>
-  )
+    <h1>{course}</h1>
+  );
 }
 
-const Total = ({ course }) => {
-  const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises
-  return(
-    <p>Number of exercises {sum}</p>
-  ) 
-}
-
-const Part = (props) => {
+const Part = ({part, exercises}) => {
   return (
     <p>
-      {props.part.name} {props.part.exercises}
-    </p>    
-  )
+      {part} {exercises}
+    </p>
+  );
 }
 
-const Content = ({ course }) => {
+const Content = ({ parts }) =>
+  parts.map(part => (
+    <Part key={part.name} part={part.name} exercises={part.exercises} />
+  ));
+
+const Total = ({ parts }) => {
+  let total = parts.reduce((sum, part) => sum + part.exercises, 0) ;
   return (
-    <div>
-      <Part part={course.parts[0]} />
-      <Part part={course.parts[1]} />
-      <Part part={course.parts[2]} />
-    </div>
-  )
+    <p>Total of {total} exercises</p>
+  ); 
 }
 
-const Course = () =>{
+
+const Course = ({course}) =>{
   return (
     <div>
-      <Header course={course}/>
-      <Content course={course}/>
-      <Total course={course}/>
+      <Header text={course.name} />
+      <Content content={course.parts} />
+      <Total parts={course.parts} />
     </div>
-  )
+  );
 }
 
 export default Course;

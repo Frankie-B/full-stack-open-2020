@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Course from './components/Course'
 
-
-
 const App = () => {
-  const course = {
+  const courses = {
     id: 1,
     name: 'Half Stack application development',
     parts: [
@@ -27,7 +25,11 @@ const App = () => {
     ]
   }
 
-  return <Course course={course} />
+   return courses.map((course, index) => (
+    <div key={index}>
+      <Course course={course} />
+    </div>
+  ));
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))
