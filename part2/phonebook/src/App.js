@@ -12,7 +12,8 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const newPerson = { name: newName };
-    setPersons(persons.concat(newPerson));
+    const unique = persons.filter(person => person.name.toLocaleLowerCase().includes(newName.toLocaleLowerCase()));
+    unique.length === 0 ? setPersons(persons.concat(newPerson)) : alert(`${newName} is already in phonebook`);
     setNewName('');
   }
 
