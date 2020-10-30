@@ -23,6 +23,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const newPerson = { name: newName , number: newNumber};
     const unique = persons.filter(person => person.name.toLowerCase().includes(newName.toLowerCase()));
     unique.length === 0 ? setPersons(persons.concat(newPerson)) : alert(`${newName} is already in phonebook`);
@@ -36,7 +37,6 @@ function App() {
 
     filter === '' ? setShowPersons(persons) : setShowPersons(persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase())))
   }
-
 
   return (
     <div className="App">
