@@ -1,11 +1,18 @@
 import React from 'react'
+import Person from './Person'
 
-const Persons = ({showPersons}) => {
+const Persons = ({ persons, filter, setPersons, setMessage }) => {
   return (
-  <ul>
-    {showPersons.map((person, index) => <li key={index}>{person.name} {person.number}</li>)}
-  </ul>
+    <ul>
+      {persons.filter(e => e.name.toLowerCase().includes(filter.toLowerCase())).map(person =>
+      <Person key={person.id}
+        person={person}
+        persons={persons}
+        setPersons={setPersons}
+        setMessage={setMessage}/>
+      )}
+    </ul>
   )
 }
 
-export default Persons;
+export default Persons
