@@ -7,7 +7,7 @@ const Person = ({ person, persons, setPersons, setMessage }) => {
         const person = persons.find(p => p.id === id)
         if (window.confirm(`Delete ${person.name}?`)) {
             personService
-                .deleteIt(person.id).then(response => {
+                .remove(person.id).then(response => {
                     setMessage({ text: `Deleted '${person.name}'`, class: 'info' })
                 })
                 .catch(error => {
