@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import personService from './services/persons'
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import Alert from './components/Alert';
-import personService from './services/persons';
-
-
-
-
+import Notification from './components/Notification';
 
 function App() {
   const [persons, setPersons] = useState([]);
-  const [filter, setNewFilter] = useState('');
-  const [message, setMessage] = useState(null);
+  const [notification, setNotification]  = useState(null);
 
-  useEffect(() => { 
-  personService
+  useEffect(() => {
+    personService
     .getAll()
-    .then(initialPersons => {
-    setPersons(initialPersons)
+    .then(response => {
+        console.log(response)
+    setPersons(response.data)
   })
 }, [])
 
   return (
     <div className="App">
       <h2>Phonebook</h2>
-      <Alert message={message} />
-      <Filter filter={filter} setFilter={setNewFilter}/>
-      <h2>add a new</h2>
-      <PersonForm persons={persons} setPersons={setPersons} />
-      <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter} setPersons={setPersons} setMessage={setMessage} />
+        <Notification notification={notification}/>
+        <Filter persons={persons}/>
+
+        <h3>Add a new</h3>
+        <PersonForm persons={persons} setPersons={setPersons} setNotification={setNotification}/>
+
+        <h3>Numbers</h3>
+        <Persons persons={persons} setPersons={setPersons} setNotification={setNotification}/>
     </div>
   );
 }
