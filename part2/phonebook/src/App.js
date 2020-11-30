@@ -15,7 +15,13 @@ function App() {
     .then(response => {
         console.log(response)
     setPersons(response.data)
-  })
+  }).catch(error => {
+    setNotification(
+        `
+        error occurred while retrieving person data from server: ${error.message}`
+    )
+      setTimeout(() => setNotification(null), 5000);
+    })
 }, [])
 
   return (
